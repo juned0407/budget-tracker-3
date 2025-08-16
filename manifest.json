@@ -1,0 +1,52 @@
+{
+  "name": "Budget Tracker - Juned",
+  "short_name": "Budget Tracker",
+  "description": "Personal budget and expense tracking app with AI assistance",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en-IN",
+  "categories": ["finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iOTYiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjcyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+4oK5PC90ZXh0Pgo8Y2lyY2xlIGN4PSI5NiIgY3k9IjY0IiByPSIyNCIgZmlsbD0id2hpdGUiLz4KPHN2ZyB4PSI3MiIgeT0iNDAiIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMyNTYzZWIiIHN0cm9rZS13aWR0aD0iMiI+CjxwYXRoIGQ9Im0xMyA3IDUgNS01IDUiLz4KPHBhdGggZD0ibTYgNyA1IDUtNSA1Ii8+CjwvZGc+Cjwvc3ZnPgo=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iMjU2IiB5PSIzMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOTIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7igrk8L3RleHQ+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjE3MCIgcj0iNjQiIGZpbGw9IndoaXRlIi8+CjxzdmcgeD0iMTkyIiB5PSIxMDYiIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI1NjNlYiIgc3Ryb2tlLXdpZHRoPSIyIj4KPHBhdGggZD0ibTEzIDcgNSA1LTUgNSIvPgo8cGF0aCBkPSJtNiA3IDUgNS01IDUiLz4KPC9zdmc+Cjwvc3ZnPgo=",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add Income",
+      "short_name": "Income",
+      "description": "Quickly add income",
+      "url": "./index.html#quick-income",
+      "icons": [{ "src": "./icon-income.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Add Expense",
+      "short_name": "Expense", 
+      "description": "Quickly add expense",
+      "url": "./index.html#quick-expense",
+      "icons": [{ "src": "./icon-expense.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "dir": "ltr",
+  "protocol_handlers": [
+    {
+      "protocol": "web+budget",
+      "url": "./index.html?action=%s"
+    }
+  ]
+}

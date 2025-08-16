@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker - Juned</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Budget Tracker</h2>
+            <button id="close-sidebar" class="close-btn">&times;</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" data-section="dashboard" class="active">📊 Dashboard</a></li>
+            <li><a href="#" data-section="transactions">💰 Transactions</a></li>
+            <li><a href="#" data-section="analytics">📈 Analytics</a></li>
+            <li><a href="#" data-section="categories">📂 Categories</a></li>
+            <li><a href="#" data-section="goals">🎯 Goals</a></li>
+            <li><a href="#" data-section="settings">⚙️ Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <div class="greeting">
+                    <h1 id="greeting-text">Good morning, Juned</h1>
+                    <p id="current-time"></p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="balance-display">
+                    <span class="balance-label">Total Balance</span>
+                    <span id="total-balance" class="balance-amount">₹0.00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="content-section active">
+            <!-- Quick Action Cards -->
+            <div class="quick-actions">
+                <div class="action-card income-card" id="quick-income">
+                    <div class="action-icon">💰</div>
+                    <div class="action-content">
+                        <h3>Add Income</h3>
+                        <p>Tap to add money in</p>
+                    </div>
+                    <div class="action-amount">+</div>
+                </div>
+                
+                <div class="action-card expense-card" id="quick-expense">
+                    <div class="action-icon">💸</div>
+                    <div class="action-content">
+                        <h3>Add Expense</h3>
+                        <p>Tap to add spending</p>
+                    </div>
+                    <div class="action-amount">-</div>
+                </div>
+            </div>
+
+            <!-- Amount Input Modal -->
+            <div id="amount-modal" class="modal hidden">
+                <div class="modal-card amount-modal-card">
+                    <div class="modal-header">
+                        <h3 id="modal-title">Add Income</h3>
+                        <button id="close-amount-modal" class="close-btn">&times;</button>
+                    </div>
+                    <div class="amount-input-section">
+                        <div class="currency-symbol">₹</div>
+                        <input type="number" id="amount-input" placeholder="0.00" step="0.01" autofocus>
+                    </div>
+                    <div class="quick-amounts">
+                        <button class="quick-amount-btn" data-amount="100">₹100</button>
+                        <button class="quick-amount-btn" data-amount="500">₹500</button>
+                        <button class="quick-amount-btn" data-amount="1000">₹1000</button>
+                        <button class="quick-amount-btn" data-amount="2000">₹2000</button>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="add-description-btn" class="btn btn-secondary">+ Description</button>
+                        <button id="confirm-amount" class="btn btn-primary">Add Transaction</button>
+                    </div>
+                    
+                    <!-- Description Section (Initially Hidden) -->
+                    <div id="description-section" class="description-section hidden">
+                        <input type="text" id="description-input" placeholder="What was this for?" class="description-input">
+                        <select id="category-select" class="category-select">
+                            <option value="">Select category</option>
+                            <option value="Food">🍕 Food & Dining</option>
+                            <option value="Transport">🚗 Transport</option>
+                            <option value="Bills">📄 Bills & Utilities</option>
+                            <option value="Entertainment">🎬 Entertainment</option>
+                            <option value="Shopping">🛒 Shopping</option>
+                            <option value="Health">🏥 Health & Medical</option>
+                            <option value="Education">📚 Education</option>
+                            <option value="Investment">📈 Investment</option>
+                            <option value="Other">📦 Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Summary -->
+            <div class="summary-cards">
+                <div class="summary-card income-summary">
+                    <div class="summary-icon">📈</div>
+                    <div class="summary-content">
+                        <h4>This Month Income</h4>
+                        <p id="monthly-income">₹0.00</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card expense-summary">
+                    <div class="summary-icon">📉</div>
+                    <div class="summary-content">
+                        <h4>This Month Expenses</h4>
+                        <p id="monthly-expenses">₹0.00</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card savings-summary">
+                    <div class="summary-icon">💎</div>
+                    <div class="summary-content">
+                        <h4>Net Savings</h4>
+                        <p id="net-savings">₹0.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="recent-transactions">
+                <div class="section-header">
+                    <h3>Recent Transactions</h3>
+                    <button id="view-all-transactions" class="link-btn">View All</button>
+                </div>
+                <div id="recent-list" class="transaction-list">
+                    <div class="empty-state">
+                        <div class="empty-icon">💳</div>
+                        <p>No transactions yet</p>
+                        <small>Add your first transaction above</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transactions Section -->
+        <section id="transactions-section" class="content-section">
+            <div class="section-header">
+                <h2>All Transactions</h2>
+                <div class="section-actions">
+                    <button id="export-csv" class="btn btn-secondary">Export CSV</button>
+                    <select id="filter-category" class="filter-select">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="all-transactions-list" class="transaction-list">
+                <!-- Transactions will be loaded here -->
+            </div>
+            
+            <!-- Pagination -->
+            <div id="pagination" class="pagination hidden">
+                <button id="prev-page" class="pagination-btn">← Previous</button>
+                <span id="page-info" class="page-info">Page 1 of 1</span>
+                <button id="next-page" class="pagination-btn">Next →</button>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="content-section">
+            <div class="section-header">
+                <h2>Spending Analytics</h2>
+                <select id="analytics-period" class="period-select">
+                    <option value="this-month">This Month</option>
+                    <option value="last-month">Last Month</option>
+                    <option value="last-3-months">Last 3 Months</option>
+                </select>
+            </div>
+            
+            <!-- Category Breakdown -->
+            <div class="analytics-cards">
+                <div class="analytics-card">
+                    <h4>Top Categories</h4>
+                    <div id="category-breakdown" class="category-breakdown">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h4>Spending Trend</h4>
+                    <div id="spending-chart" class="chart-container">
+                        <div class="chart-placeholder">
+                            <div class="chart-icon">📊</div>
+                            <p>Add more transactions to see trends</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daily Average -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Daily Average Spending</h4>
+                    <p id="daily-average">₹0.00</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Largest Expense</h4>
+                    <p id="largest-expense">₹0.00</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Transactions</h4>
+                    <p id="total-transactions">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories-section" class="content-section">
+            <div class="section-header">
+                <h2>Category Limits</h2>
+                <p class="section-subtitle">Set monthly spending limits for each category</p>
+            </div>
+            
+            <div id="category-limits" class="category-limits">
+                <!-- Will be populated by JS -->
+            </div>
+        </section>
+
+        <!-- Goals Section -->
+        <section id="goals-section" class="content-section">
+            <div class="section-header">
+                <h2>Financial Goals</h2>
+                <button id="add-goal-btn" class="btn btn-primary">+ Add Goal</button>
+            </div>
+            
+            <div id="goals-list" class="goals-list">
+                <div class="empty-state">
+                    <div class="empty-icon">🎯</div>
+                    <p>No goals set</p>
+                    <small>Add your first financial goal</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings-section" class="content-section">
+            <div class="section-header">
+                <h2>Settings</h2>
+            </div>
+            
+            <div class="settings-list">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Account Balances</h4>
+                        <p>Manage your account balances</p>
+                    </div>
+                    <button id="edit-accounts" class="setting-btn">Edit</button>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Dark Mode</h4>
+                        <p>Switch between light and dark theme</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Export Data</h4>
+                        <p>Download your transaction data</p>
+                    </div>
+                    <button id="export-all-data" class="setting-btn">Export</button>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Clear All Data</h4>
+                        <p>Reset the app completely</p>
+                    </div>
+                    <button id="clear-all-data" class="setting-btn danger">Clear</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- AI Chat Toggle -->
+    <div id="chat-toggle" class="chat-toggle">
+        <div class="chat-icon">🤖</div>
+        <span class="chat-text">AI Assistant</span>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="chat-modal" class="modal hidden">
+        <div class="modal-card chat-modal-card">
+            <div class="chat-header">
+                <h3>🤖 Budget AI Assistant</h3>
+                <button id="close-chat" class="close-btn">&times;</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Hi Juned! I'm your personal budget assistant. I can help you:</p>
+                        <ul>
+                            <li>Analyze your spending patterns</li>
+                            <li>Add transactions quickly</li>
+                            <li>Set budget goals</li>
+                            <li>Answer questions about your finances</li>
+                        </ul>
+                        <p>Try asking: <em>"What did I spend on food this month?"</em> or <em>"Add ₹500 expense for groceries"</em></p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Ask me anything about your budget..." autocomplete="off">
+                    <button id="chat-send" class="chat-send-btn">
+                        <span class="send-icon">📤</span>
+                    </button>
+                </div>
+                <div class="chat-status" id="chat-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
